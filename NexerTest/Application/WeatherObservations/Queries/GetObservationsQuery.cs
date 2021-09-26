@@ -7,34 +7,28 @@ using NexerTest.Data.ViewModels;
 using System.Threading;
 using System;
 using Newtonsoft.Json;
+using NexerTest.Development.NexerHttpClient;
 
 namespace NexerTest.Application.GetObservationsQuery.Queries
 {
     public class GetObservationsCommand: IRequest<Result>
     {
 
-        public DateTime DateSelected { get; set; }
-
-
-
         public class GetObservationsHandler : IRequestHandler<GetObservationsCommand, Result>
         {
             private WeatherDataStore _data = new WeatherDataStore();
-
+            private readonly INexerHttpClient _client;
             private readonly IMediator _mediator;
-            public GetObservationsHandler(IMediator mediator)
+
+            public GetObservationsHandler()//INexerHttpClient client ,IMediator mediator)
             {
-                _mediator = mediator;
+              //  _client = client;
+               // _mediator = mediator;
             }
 
             public async Task<Result> Handle(GetObservationsCommand request, CancellationToken cancellationToken)
             {
-              /*  if (string.IsNullOrEmpty(request.DateSelected.ToString())) 
-                {
-                    return new Result {Payload= "No DateSelected was given", Exception = new Exception("Error -> No DateSelected") }; 
-                }
-                */
-                
+             
                 try
                 {
 

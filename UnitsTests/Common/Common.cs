@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using NexerTest.Development;
 using NexerTest.Development.NexerHttpClient;
 
-namespace FhirFighter.Infrastructure.FhirHttpClient
+namespace NexerTest.Infrastructure.FhirHttpClient
 {
     public class NexerHttpClient : INexerHttpClient
     {

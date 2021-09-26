@@ -1,4 +1,4 @@
-
+﻿
 using System.Threading.Tasks.Dataflow;
 using System;
 using System.Threading;
@@ -12,12 +12,13 @@ using NexerTest.Data.ViewModels;
 using NexerTest.Application.GetObservationsQuery.Queries;
 using NexerTest.Application.UnitTests.Common;
 using System.Net;
+using NexerTest.Application.WeatherObservations.Queries.GetObservationsByDate;
 
 namespace NexerTestTests.Application.UnitTests.WeatherObservations.Queries.RetrieveList
-{  
-    
-   
-    public class GetObservations 
+{
+
+
+    public class GetObservationsByDateTest
     {
 
 
@@ -39,23 +40,34 @@ namespace NexerTestTests.Application.UnitTests.WeatherObservations.Queries.Retri
         }
 
         [Fact]
-        public async void RetrieveList()
+        public async void ValidDate_RetrieveList()
         {
-            GetObservationsCommand test = new GetObservationsCommand();
-            
-            var handler = new GetObservationsCommand.GetObservationsHandler();
-            var query = new GetObservationsCommand { };
+            GetObservationsByDateCommand test = new GetObservationsByDateCommand();
+
+            var handler = new GetObservationsByDateCommand.GetObservationsByDateHandler();
+            var query = new GetObservationsByDateCommand {DateSelected= "26/09/2021 15:50" };
             var result = await handler.Handle(query, CancellationToken.None);
-            
+
             result.Success.ShouldBe(true);
         }
 
+
+        [Fact]
+        public async void InvalidDate()
+        {
+            GetObservationsByDateCommand test = new GetObservationsByDateCommand();
+            var handler = new GetObservationsByDateCommand.GetObservationsByDateHandler();
+            var query = new GetObservationsByDateCommand { DateSelected = "II/09/2021 15:50" };
+            var result = await handler.Handle(query, CancellationToken.None);
+
+            result.Success.ShouldBe(false);
+        }
 
 
 
     }
 
-    
+
 }
 
 

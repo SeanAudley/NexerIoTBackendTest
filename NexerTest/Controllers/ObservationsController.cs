@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using NexerTest.Application.GetObservationsQuery.Queries;
+using NexerTest.Application.WeatherObservations.Queries.GetObservationsByDate;
 
 namespace NexerTest.Controllers
 {
@@ -19,6 +20,13 @@ namespace NexerTest.Controllers
         public async Task<ActionResult> GetObservations()
         {
             var products = await _mediator.Send(new GetObservationsCommand());
+            return Ok(products);
+        }
+
+        [HttpGet("[action]/{dateTimeSelected}")]
+        public async Task<ActionResult> GetObservationsByDate(string dateTimeSelected)
+        {
+            var products = await _mediator.Send(new GetObservationsByDateCommand { DateSelected = dateTimeSelected } );
             return Ok(products);
         }
     }

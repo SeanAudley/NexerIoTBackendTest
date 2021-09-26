@@ -10,7 +10,7 @@ using System.IO;
 using Microsoft.Extensions.Logging;
 using NexerTest.Development.NexerHttpClient;
 
-namespace FhirFighter.Application.UnitTests.Common {
+namespace NexerTest.Application.UnitTests.Common {
     public abstract class QueryTestBase {
 
         protected readonly IDateTimeService DateTimeService;
@@ -26,7 +26,7 @@ namespace FhirFighter.Application.UnitTests.Common {
             using var sr = new StreamReader(filePath); return sr.ReadToEnd();
         }
 
-        protected static Mock<INexerHttpClient> MockFhirHttpClientGet(string uri, string stringContent) {
+        protected static Mock<INexerHttpClient> MockHttpClientGet(string uri, string stringContent) {
             var mock = new Mock<INexerHttpClient>();
             mock.SetupGet(e => e.BaseUrl).Returns(new Uri("https://baseurl.com"));
             var resp = new HttpResponseMessage {
@@ -37,7 +37,7 @@ namespace FhirFighter.Application.UnitTests.Common {
             return mock;
         }
 
-        protected static Mock<INexerHttpClient> MockFhirHttpClientPost(string uri, string bodyIn, string responseIn, HttpStatusCode codein) {
+        protected static Mock<INexerHttpClient> MockHttpClientPost(string uri, string bodyIn, string responseIn, HttpStatusCode codein) {
             var mock = new Mock<INexerHttpClient>();
             mock.SetupGet(e => e.BaseUrl).Returns(new Uri("https://baseurl.com"));
             var resp = new HttpResponseMessage {
@@ -50,7 +50,7 @@ namespace FhirFighter.Application.UnitTests.Common {
             return mock;
         }
 
-        protected static Mock<INexerHttpClient> MockFhirHttpClientPut(string uri, string bodyIn, string responseIn, HttpStatusCode codein) {
+        protected static Mock<INexerHttpClient> MockHttpClientPut(string uri, string bodyIn, string responseIn, HttpStatusCode codein) {
             var mock = new Mock<INexerHttpClient>();
             mock.SetupGet(e => e.BaseUrl).Returns(new Uri("https://baseurl.com"));
             var resp = new HttpResponseMessage {
@@ -63,7 +63,7 @@ namespace FhirFighter.Application.UnitTests.Common {
             return mock;
         }
 
-        protected static Mock<INexerHttpClient> MockFhirHttpClientDelete(string uri, string responseIn) {
+        protected static Mock<INexerHttpClient> MockHttpClientDelete(string uri, string responseIn) {
             var mock = new Mock<INexerHttpClient>();
             var resp = new HttpResponseMessage {
                 Content = new StringContent(responseIn)
@@ -73,7 +73,7 @@ namespace FhirFighter.Application.UnitTests.Common {
             return mock;
         }
 
-        protected static Mock<INexerHttpClient> MockFhirHttpClientGetAndPut(string uri, string stringContent, string bodyIn, string responseIn, HttpStatusCode codein, string putUri) {
+        protected static Mock<INexerHttpClient> MockHttpClientGetAndPut(string uri, string stringContent, string bodyIn, string responseIn, HttpStatusCode codein, string putUri) {
             var mock = new Mock<INexerHttpClient>();
             mock.SetupGet(e => e.BaseUrl).Returns(new Uri("https://baseurl.com"));
             var respGet = new HttpResponseMessage {
