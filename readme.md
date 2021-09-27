@@ -1,4 +1,4 @@
-Nexter Technical Test
+Nexer Technical Test
 ================
 Introduction
 ----------------
