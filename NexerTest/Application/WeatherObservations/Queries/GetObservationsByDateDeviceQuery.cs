@@ -9,34 +9,37 @@ using System;
 using Newtonsoft.Json;
 using NexerTest.Development.NexerHttpClient;
 
-namespace NexerTest.Application.WeatherObservations.Queries.GetObservationsByDate
+namespace NexerTest.Application.WeatherObservations.Queries.GetObservationsByDateDeviceCommand
 {
-    public class GetObservationsByDateCommand : IRequest<Result>
+    public class GetObservationsByDateDeviceCommand : IRequest<Result>
     {
 
         public string DateSelected { get; set; }
+        public string DeviceName { get; set; }
 
 
-
-        public class GetObservationsByDateHandler : IRequestHandler<GetObservationsByDateCommand, Result>
+        public class GetObservationsByDateDeviceHandler : IRequestHandler<GetObservationsByDateDeviceCommand, Result>
         {
             private WeatherDataStore _data = new WeatherDataStore();
             private readonly INexerHttpClient _client;
             private readonly IMediator _mediator;
 
-            public GetObservationsByDateHandler()//INexerHttpClient client ,IMediator mediator)
+            public GetObservationsByDateDeviceHandler()//INexerHttpClient client ,IMediator mediator)
             {
                 //  _client = client;
                 // _mediator = mediator;
             }
 
-            public async Task<Result> Handle(GetObservationsByDateCommand request, CancellationToken cancellationToken)
+            public async Task<Result> Handle(GetObservationsByDateDeviceCommand request, CancellationToken cancellationToken)
             {
                 if (string.IsNullOrEmpty(request.DateSelected.ToString()))
                 {
                     return new Result { Payload = "No DateSelected was given", Exception = new Exception("Error -> No DateSelected") };
                 }
-                
+                if (string.IsNullOrEmpty(request.DeviceName.ToString()))
+                {
+                    return new Result { Payload = "No DeviceName was entered", Exception = new Exception("Error -> No DeviceName Entered") };
+                }
                 DateTime dateTimeEnteredConverted;
                 string replaceSlashData = "";
                 if (request.DateSelected.Contains(""))
@@ -56,10 +59,11 @@ namespace NexerTest.Application.WeatherObservations.Queries.GetObservationsByDat
                 try
                 {
                     List<Weather> data= await _data.RetrieveBlobByDate(dateTimeEnteredConverted);
-                    data.Where(c=> c.ObservationTime==dateTimeEnteredConverted);
+                    //data.Where(c=> string.Equals(c.DeviceName.ToUpper().Trim(), request.DeviceName.ToUpper().Trim(), StringComparison.OrdinalIgnoreCase));
+                    var query = from c in data where c.DeviceName.Equals(request.DeviceName) select c;
                     return new Result
                     {
-                        Payload = JsonConvert.SerializeObject(data)
+                        Payload = JsonConvert.SerializeObject(query)
                     };
                 }
                 catch (Exception e)

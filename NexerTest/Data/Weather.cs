@@ -11,6 +11,8 @@ namespace NexerTest.Data
         public double Rainfall { get; set; }
         public double Humidity { get; set; }
         public double Temperature { get; set; }
+
+        public string DeviceName { get; set; }
     
     }
 }

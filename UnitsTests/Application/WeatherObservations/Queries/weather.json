@@ -3,19 +3,22 @@
     "ObservationTime": "26/09/2021 14:45",
     "Humidity": 12,
     "Rainfall": 1,
-    "Temperature": 17
+    "Temperature": 17,
+    "DeviceName": "Alpha"
   },
   {
     "ObservationTime": "26/09/2021 15:00",
     "Humidity": 15,
     "Rainfall": 1,
-    "Temperature": 17
+    "Temperature": 17,
+    "DeviceName": "Beta"
   },
   {
     "ObservationTime": "26/09/2021 15:15",
     "Humidity": 16,
     "Rainfall": 1,
-    "Temperature": 16.9
+    "Temperature": 16.9,
+    "DeviceName": "Charlie"
   }
 ]
             

@@ -14,6 +14,7 @@ using MediatR;
 using NexerTest.Data;
 using Swashbuckle.AspNetCore.Swagger;
 using Microsoft.OpenApi.Models;
+using NexerTest.Development;
 
 namespace NexerTest
 {
@@ -33,6 +34,7 @@ namespace NexerTest
             services.AddMediatR(typeof(Startup));
             services.AddSingleton<WeatherDataStore>();
             services.AddMvc();
+            services.AddOptions<Settings>().Bind(Configuration.GetSection("NexerTestSettings"));
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc(name: "v1", new OpenApiInfo { Title = "NexerTest", Version = "v1" });

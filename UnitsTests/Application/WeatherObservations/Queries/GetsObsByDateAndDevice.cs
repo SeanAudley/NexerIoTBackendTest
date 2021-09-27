@@ -13,12 +13,13 @@ using NexerTest.Application.GetObservationsQuery.Queries;
 using NexerTest.Application.UnitTests.Common;
 using System.Net;
 using NexerTest.Application.WeatherObservations.Queries.GetObservationsByDate;
+using NexerTest.Application.WeatherObservations.Queries.GetObservationsByDateDeviceCommand;
 
 namespace NexerTestTests.Application.UnitTests.WeatherObservations.Queries
 {
 
 
-    public class GetObservationsByDateTest
+    public class GetObservationsByDateDeviceTest
     {
 
 
@@ -42,10 +43,10 @@ namespace NexerTestTests.Application.UnitTests.WeatherObservations.Queries
         [Fact]
         public async void ValidDate_RetrieveList()
         {
-            GetObservationsByDateCommand test = new GetObservationsByDateCommand();
+            GetObservationsByDateDeviceCommand test = new GetObservationsByDateDeviceCommand();
 
-            var handler = new GetObservationsByDateCommand.GetObservationsByDateHandler();
-            var query = new GetObservationsByDateCommand {DateSelected= "26/09/2021 15:50" };
+            var handler = new GetObservationsByDateDeviceCommand.GetObservationsByDateDeviceHandler();
+            var query = new GetObservationsByDateDeviceCommand {DeviceName="Alpha", DateSelected= "26/09/2021 15:50" };
             var result = await handler.Handle(query, CancellationToken.None);
 
             result.Success.ShouldBe(true);
@@ -55,9 +56,9 @@ namespace NexerTestTests.Application.UnitTests.WeatherObservations.Queries
         [Fact]
         public async void InvalidDate()
         {
-            GetObservationsByDateCommand test = new GetObservationsByDateCommand();
-            var handler = new GetObservationsByDateCommand.GetObservationsByDateHandler();
-            var query = new GetObservationsByDateCommand { DateSelected = "II/09/2021 15:50" };
+            GetObservationsByDateDeviceCommand test = new GetObservationsByDateDeviceCommand();
+            var handler = new GetObservationsByDateDeviceCommand.GetObservationsByDateDeviceHandler();
+            var query = new GetObservationsByDateDeviceCommand {DeviceName="Alpha", DateSelected = "II/09/2021 15:50" };
             var result = await handler.Handle(query, CancellationToken.None);
 
             result.Success.ShouldBe(false);
@@ -66,14 +67,24 @@ namespace NexerTestTests.Application.UnitTests.WeatherObservations.Queries
         [Fact]
         public async void NoDateEntered()
         {
-            GetObservationsByDateCommand test = new GetObservationsByDateCommand();
-            var handler = new GetObservationsByDateCommand.GetObservationsByDateHandler();
-            var query = new GetObservationsByDateCommand { DateSelected = "" };
+            GetObservationsByDateDeviceCommand test = new GetObservationsByDateDeviceCommand();
+            var handler = new GetObservationsByDateDeviceCommand.GetObservationsByDateDeviceHandler();
+            var query = new GetObservationsByDateDeviceCommand { DateSelected = "" };
             var result = await handler.Handle(query, CancellationToken.None);
 
             result.Success.ShouldBe(false);
         }
 
+        [Fact]
+        public async void NoDeviceEntered()
+        {
+            GetObservationsByDateDeviceCommand test = new GetObservationsByDateDeviceCommand();
+            var handler = new GetObservationsByDateDeviceCommand.GetObservationsByDateDeviceHandler();
+            var query = new GetObservationsByDateDeviceCommand { DeviceName = "", DateSelected = "26/09/2021 15:50" };
+            var result = await handler.Handle(query, CancellationToken.None);
+
+            result.Success.ShouldBe(false);
+        }
     }
 
 

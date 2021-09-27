@@ -13,7 +13,7 @@ using NexerTest.Application.GetObservationsQuery.Queries;
 using NexerTest.Application.UnitTests.Common;
 using System.Net;
 
-namespace NexerTestTests.Application.UnitTests.WeatherObservations.Queries.RetrieveList
+namespace NexerTestTests.Application.UnitTests.WeatherObservations.Queries
 {  
     
    
