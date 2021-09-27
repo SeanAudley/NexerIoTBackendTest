@@ -19,15 +19,15 @@ namespace NexerTest.Controllers
         [HttpGet]
         public async Task<ActionResult> GetObservations()
         {
-            var products = await _mediator.Send(new GetObservationsCommand());
-            return Ok(products);
+            var weather= await _mediator.Send(new GetObservationsCommand());
+            return Ok(weather);
         }
 
         [HttpGet("[action]/{dateTimeSelected}")]
         public async Task<ActionResult> GetObservationsByDate(string dateTimeSelected)
         {
-            var products = await _mediator.Send(new GetObservationsByDateCommand { DateSelected = dateTimeSelected } );
-            return Ok(products);
+            var weather = await _mediator.Send(new GetObservationsByDateCommand { DateSelected = dateTimeSelected } );
+            return Ok(weather);
         }
     }
 } 

@@ -18,11 +18,6 @@ namespace NexerTest.Data
             new Weather {ObservationTime= DateTime.Now.AddMinutes(10), Humidity=16, Rainfall=1, Temperature=16.9  }
         };
         }
-        public async Task AddProduct(Weather weatherObs)
-        {
-            _observations.Add(weatherObs);
-            await Task.CompletedTask;
-        }
-        public async Task<IEnumerable<Weather>> GetAll() => await Task.FromResult(_observations);
+        public IEnumerable<Weather> GetAll() => _observations;
     }
 }

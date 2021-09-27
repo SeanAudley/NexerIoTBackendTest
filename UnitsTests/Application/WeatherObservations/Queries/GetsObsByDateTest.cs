@@ -63,7 +63,16 @@ namespace NexerTestTests.Application.UnitTests.WeatherObservations.Queries.Retri
             result.Success.ShouldBe(false);
         }
 
+        [Fact]
+        public async void NoDateEntered()
+        {
+            GetObservationsByDateCommand test = new GetObservationsByDateCommand();
+            var handler = new GetObservationsByDateCommand.GetObservationsByDateHandler();
+            var query = new GetObservationsByDateCommand { DateSelected = "" };
+            var result = await handler.Handle(query, CancellationToken.None);
 
+            result.Success.ShouldBe(false);
+        }
 
     }
 

@@ -46,10 +46,11 @@ namespace NexerTest.Application.WeatherObservations.Queries.GetObservationsByDat
 
                 try
                 {
-
+                    var _retData = _data.GetAll();
+                    _retData.Where(c=> c.ObservationTime==dateTimeEnteredConverted);
                     return new Result
                     {
-                        Payload = JsonConvert.SerializeObject(_data.GetAll())
+                        Payload = JsonConvert.SerializeObject(_retData)
                     };
                 }
                 catch (Exception e)
